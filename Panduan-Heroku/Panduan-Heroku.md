@@ -58,6 +58,9 @@ web: vendor/bin/heroku-php-apache2 public/
 
 ![1668157969253](image/Panduan-Heroku/1668157969253.png)
 
+> Kode tersebut berfungsi untuk mengarahkan file indeks aplikasi. Pada laravel, file index.php kan tersimpan di folder public, maka kita mengatur nya di folder public.
+>
+
 **Selanjutnya, inisiasi git dulu didalam folder project (ini bisa *connect* ke github kita juga lho). 😍**
 
 ## Initialize Git repo
@@ -74,3 +77,13 @@ git push -u origin main
 ```
 
 Setelah code naik ke git repo, saatnya kita *setup* persiapan *deploy* ke heroku. 🕺🏻
+
+# Push Aplikasi Ke Heroku
+
+Jalankan perintah berikut:
+
+```
+git add .
+git commit -m "Add Procfile"
+git push heroku master
+```
