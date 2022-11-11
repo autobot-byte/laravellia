@@ -72,3 +72,5 @@ git branch -M main
 git remote add origin https://github.com/autobot-byte/laravellia.git
 git push -u origin main
 ```
+
+Setelah code naik ke git repo, saatnya kita *setup* persiapan *deploy* ke heroku. 🕺🏻
