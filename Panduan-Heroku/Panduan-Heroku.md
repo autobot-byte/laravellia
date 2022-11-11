@@ -62,13 +62,13 @@ web: vendor/bin/heroku-php-apache2 public/
 
 ## Initialize Git repo
 
-Jalankan command berikut untuk inisiasi git repo dari terminal *-git remote nya url ke repo masing2 ya-* 🥳
+Jalankan command berikut untuk inisiasi git repo dari terminal *-git remote nya url ke repo masing2 ya.* 🥳
 
 ```bash
 git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin git@github.com:autobot-byte/laravellia.git
+git remote add origin https://github.com/autobot-byte/laravellia.git
 git push -u origin main
 ```
