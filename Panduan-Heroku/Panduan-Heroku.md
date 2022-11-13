@@ -498,3 +498,13 @@ jika terdapat file uploaded di projek anda, sehingga harus membuat linking ke /p
 ```bash
 heroku run php artisan storage:link
 ```
+
+Respon:
+
+```bash
+yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
+$ heroku run php artisan storage:link
+Running php artisan storage:link on ⬢ laravellia... up, run.3131 (Free)
+The [/app/public/storage] link has been connected to [/app/storage/app/public].
+The links have been created.
+```

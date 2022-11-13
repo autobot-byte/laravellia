@@ -272,3 +272,5 @@ https://djiwandou.medium.com/setup-dan-deploy-laravel-project-ke-heroku-b91fdc3a
 https://bukuinformatika.com/deploy-laravel-ke-heroku/
 
 https://www.ismynr.xyz/2020/10/deploy-laravel-ke-heroku-mysql.html
+
+https://appdividend.com/2022/03/01/how-to-deploy-laravel-project-on-heroku/#Deploy_Laravel_Project_On_Heroku
