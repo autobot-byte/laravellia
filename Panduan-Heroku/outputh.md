@@ -1,121 +1,3 @@
-# Login ke Heroku CLI
-
-Sebelum masuk ke tahap ini pastikan aplikasi berada dalam direktori & `heroku CLI` sudah diinstall.
-
-* Masuk ke terminal / command prompt pada folder aplikasi, kemudian jalankan perintah :
-
-`$ heroku login`
-
-Heroku akan mengarahkan kita untuk login via browser.
-
-![1668156874532](image/heroku/1668156874532.png)Setelah berhasil, pada terminal akan menampilkan email kita, seperti output pada terminal berikut:
-
-```bash
-heroku: Press any key to open up the browser to login or q to exit:
-Opening browser to https://cli-auth.heroku.com/auth/cli/browser/c57590ec-7f1b-45d5-9a2e-16aa9f2c8680?requestor=SFMyNTY.g2gDbQAAAA8xMDMuMTQ0LjE3NS4yMzBuBgAQPdZlhAFiAAFRgA.vICSJphBLdfnNdXAi8VjVQBmmQ5OJk9Ka-gwDvPJePM
-Logging in... done
-Logged in as aninomus.ani@gmail.com
-```
-
-*heroku cli login berhasil ☝🏻*
-
-## Mendaftarkan Aplikasi di Heroku
-
-Aplikasi yang telah kita buat, perlu didaftarkan terlebih dahulu dengan menjalankan perintah :
-
-```bash
-heroku create nama-aplikasi-kita
-```
-
-Ketika pendaftaran aplikasi berhasil, maka kita sudah bisa mengakses aplikasi kita, walau masih belum ada isinya.
-
-```bash
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb
-$ heroku create laravellia
-Creating ⬢ laravellia... done
-https://laravellia.herokuapp.com/ | https://git.heroku.com/laravellia.git
-```
-
-![1668157029653](image/heroku/1668157029653.png)
-
-heroku create berhasil ☝🏻
-
-# Menambahkan Procfile
-
-Buat file yang bernama `Procfile `dengan cara ketik perintah berikut di terminal didalam folder project Laravel kita.
-
-```bash
-touch Procfile
-```
-
-![1668157721984](image/heroku/1668157721984.png "procfile")
-
-Setelah itu isi Procfile seperti ini:
-
-```php
-web: vendor/bin/heroku-php-apache2 public/
-```
-
-![1668157969253](image/Panduan-Heroku/1668157969253.png)
-
-> Kode tersebut berfungsi untuk mengarahkan file indeks aplikasi. Pada laravel, file index.php kan tersimpan di folder public, maka kita mengatur nya di folder public.
-
-**Selanjutnya, inisiasi git dulu didalam folder project (ini bisa *connect* ke github kita juga lho). 😍**
-
-## Initialize Git repo
-
-Jalankan command berikut untuk inisiasi git repo dari terminal *-git remote nya url ke repo masing2 ya.* 🥳
-
-```bash
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/autobot-byte/laravellia.git
-git push -u origin main
-```
-
-Setelah code naik ke git repo, saatnya kita *setup* persiapan *deploy* ke heroku. 🕺🏻
-
-# Push Aplikasi Ke Heroku
-
-Jalankan perintah berikut:
-
-```
-git add .
-git commit -m "Add Procfile"
-git push heroku master
-```
-
-Perintah ini untuk menambahkan file Procfile yang kita buat tadi dan sekaligus mengirim kode aplikasi ke heroku.
-
-Buka [https://dashboard.heroku.com/](https://dashboard.heroku.com/) maka akan ditambahkan otomatis applikasi yang telah kita buat di heroku cli
-
-![1668331857347](image/Panduan-Heroku/1668331857347.png)
-
-Selanjutnya cek **remote git** nya untuk memastikan apakah sudah ada remote bernama **"heroku".** untuk push projek nya ke heroku dengan menggunakan perintah berikut:
-
-Jika responya seperti ini:
-
-```bash
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$ git remote -v
-heroku  https://git.heroku.com/laravellia.git (fetch)
-heroku  https://git.heroku.com/laravellia.git (push)
-origin  git@github.com:autobot-byte/laravellia.git (fetch)
-origin  git@github.com:autobot-byte/laravellia.git (push)
-```
-
-maka project kita sudah siap di push ke **Heroku.**
-
-Kemudian push project nya dengan git menggunakan remote yang mengarahkan ke heroku app dengan perintah berikut: 
-
-```bash
-git push heroku master
-```
-
-Responya:
-
 ```bash
 yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
 $ git init
@@ -332,169 +214,61 @@ To https://git.heroku.com/laravellia.git[new branch]      main -> mainyysofiyan@
 $
 ```
 
-Projek laravel telah di deploy, lalu buka aplikasinya sebagai contoh: [https://laravellia.herokuapp.com/](laravelia) atau bisa juga mengetikan perintah:
-
-```bash
-heroku open
-```
-
-# Konfigurasi laravel di heroku
-
-Kita perlu definisikan *variable environment laravel* pada *heroku*, caranya tinggal samakan saja *key* yang dibutuhkan pada *file .env* di *heroku cli*, seperti pada command berikut sesuai kebutuhan:
-
-```bash
-heroku config:add APP_DEBUG=true
-heroku config:add APP_KEY=base64:A1GSHY1C2PTFJa45/h0lEmoXShwac/esnYD2b5Jsn2s=
-heroku config:add APP_NAME=laravellia
-heroku config:add APP_ENV=production
-heroku config:add APP_URL=https://laravellia.herokuapp.com/
-```
-
-Selanjutnya jalankan kode ini untuk menambah `APP_KEY` ke environment heroku :
-
-```bash
-heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
-```
-
-Responnya:
-
-![1668323766544](image/Panduan-Heroku/1668323766544.png)
-
-# Konfigurasi Database di Heroku
-
-Konfigurasi database bisa menggunakan *MySQL* datau *PostgreSQL* di heroku caranya kita perlu install *addon database* yang akan kita pakai, disini kita akan menggunakan database PostgreeSQL karena PostgreeSQL ini  (FREE).
-
-Jalankan perintah berikut ini untuk membuat database baru di heroku.
-
-```bash
-heroku addons:create heroku-postgresql:hobby-dev
-```
-
-Responya:
-
-```bash
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$ heroku addons:create heroku-postgresql:hobby-dev
-Creating heroku-postgresql:hobby-dev on ⬢ laravellia... free
-Database has been created and is available
- ! This database is empty. If upgrading, you can transfer
- ! data from another database with pg:copy
-DEPRECATION NOTICE:
- Starting November 28th, 2022, ‘hobby-dev’ databases will no longer be available. To retain your data after this date, upgrade to ‘mini’ or another paid plan. 
- Learn more in our blog (https://blog.heroku.com/new-low-cost-plans)
-Created postgresql-triangular-05216 as DATABASE_URL  
-Use heroku addons:docs heroku-postgresql to view documentation
-
-ute-1.amazonaws.com port=5432 user=parfbljmlbhsgv password=61e1cda46a0844ccd34343238f07d36c44be14475229145771067aeb44db5d37 sslmode=require"  
-Connection URL:   postgres://parfbljmlbhsgv:61e1cda46a0844ccd34343238f07d36c44be14475229145771067aeb44db5d37@ec2-44-195-132-31.compute-1.amazonaws.com:5432/det9j9s7vggsht
-```
-
-**Ket: `hobby-dev (adalah nama database-nya: silahkan disesuaikan)`
-
-Selanjutnya kita lihat dulu konfigurasi database yang telah dibuat oleh heroku denga menggunakan perintah berikut:
+Follow this steps:
 
 ```
-heroku pg:credentials:url
+ $ git init 
+
+ $ git add .
+
+ $ git commit -m "init"
+
+ $ git branch -M main
+
+ $ git push heroku main
 ```
 
-Responya:
+* [ ] heroku stuck
 
-```bash
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$ heroku pg:credentials:url
-Connection information for default credential.
-Connection info string:
-   "dbname=det9j9s7vggsht host=ec2-44-195-132-31.compute-1.amazonaws.com port=5432 user=parfbljmlbhsgv password=61e1cda46a0844ccd34343238f07d36c44be14475229145771067aeb44db5d37 sslmode=require"
-Connection URL:
-   postgres://parfbljmlbhsgv:61e1cda46a0844ccd34343238f07d36c44be14475229145771067aeb44db5d37@ec2-44-195-132-31.compute-1.amazonaws.com:5432/det9j9s7vggsht
-```
+---
 
-Atau bisa juga kita cek lewat dasboard: [https://data.heroku.com/]() 
+* check if heroku is added as remote: git remote -v you should see something like this:
 
-![1668335298828](image/Panduan-Heroku/1668335298828.png)
+heroku [https://git.heroku.com/yourapp.git](https://git.heroku.com/yourapp.git) (fetch) heroku [https://git.heroku.com/yourapp.git](https://git.heroku.com/yourapp.git) (push)
 
-Selanjutnya sesuaikan *environmentnya* dengan mengguanakan perintah berikut: 
+* if there is none then set the remote - git remote add heroku git@heroku.com:MyApp.git (in old git versions ) or heroku git:remote -a example-app (in new version of git)
+* git push heroku master (old git) git push heroku main (new git
 
-```bash
-heroku config:add DB_CONNECTION=pgsql
-heroku config:add DB_HOST=ec2-44-195-132-31.compute-1.amazonaws.com
-heroku config:add DB_PORT=5432
-heroku config:add DB_DATABASE=det9j9s7vggsht
-heroku config:add DB_USERNAME=parfbljmlbhsgv
-heroku config:add DB_PASSWORD=61e1cda46a0844ccd34343238f07d36c44be14475229145771067aeb44db5d37
-```
+[https://stackoverflow.com/questions/26595874/heroku-src-refspec-master-does-not-match-any](refernsi)
 
-Responnya: 
+https://stackoverflow.com/questions/2643502/git-how-to-solve-permission-denied-publickey-error-when-using-git
 
-```bash
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$ heroku config:add DB_CONNECTION=pgsql
-Setting DB_CONNECTION and restarting ⬢ laravellia... done, v8
-DB_CONNECTION: pgsqlyysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
+https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/GitHub-SSH-Windows-Example
 
-$ heroku config:add DB_HOST=ec2-44-195-132-31.compute-1.amazonaws.com
-Setting DB_HOST and restarting ⬢ laravellia... done, v9
-DB_HOST: ec2-44-195-132-31.compute-1.amazonaws.comyysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
+---
 
-$ heroku config:add DB_PORT=5432
-Setting DB_PORT and restarting ⬢ laravellia... done, v10
-DB_PORT: 5432yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
+https://www.niagahoster.co.id/blog/laravel-blog/
 
-$ heroku config:add DB_DATABASE=det9j9s7vggsht
-Setting DB_DATABASE and restarting ⬢ laravellia... done, v11
-DB_DATABASE: det9j9s7vggshtyysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
+https://gilacoding.com/read/contoh-dan-tutorial-project-php-mvc-sederhana-aplikasi-buku-kita
 
-$ heroku config:add DB_USERNAME=parfbljmlbhsgv
-Setting DB_USERNAME and restarting ⬢ laravellia... done, v12
-DB_USERNAME: parfbljmlbhsgvyysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
+https://afrizalmy.com/
 
-$ heroku config:add DB_PASSWORD=61e1cda46a0844ccd34343238f07d36c44be14475229145771067aeb44db5d37
-Setting DB_PASSWORD and restarting ⬢ laravellia... done, v13
-DB_PASSWORD: 61e1cda46a0844ccd34343238f07d36c44be14475229145771067aeb44db5d37yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$
-```
+https://balajidharma.medium.com/
 
-Sesuaikan untuk *HOST/DB/USERNAME/PASSWORD* dengan konfigurasi temen-temen.
+https://medium.com/modulr/send-telegram-notifications-with-laravel-9-342cc87b406
 
-Setelah selesai konfigurasi variable environmentnya, maka hal yang harus dilakukan adalah *migrate schema database* dan *seedernya. dengan perintah berikut:*
+https://fahram.dev/article/laravel-8-make-auth
 
-```bash
-heroku run php artisan migrate
-heroku run php artisan db:seed
-```
+https://programmerindo.com/membuat-login-cepat-dan-mudah-dengan-laravel-8/
 
-Respon :
+https://www.php.id/register.html
 
-```php
-Migration table created successfully.
-Migrating: 2014_10_12_000000_create_users_table
-Migrated:  2014_10_12_000000_create_users_table (20.79ms)
-Migrating: 2014_10_12_100000_create_password_resets_table
-Migrated:  2014_10_12_100000_create_password_resets_table (19.31ms)
-Migrating: 2019_08_19_000000_create_failed_jobs_table
-Migrated:  2019_08_19_000000_create_failed_jobs_table (20.81ms)
-Migrating: 2021_05_29_060448_create_blogs_table
-Migrated:  2021_05_29_060448_create_blogs_table (15.92ms)
+---
 
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$
-```
+* [ ] tutorial heroku
 
-Respon:
+https://djiwandou.medium.com/setup-dan-deploy-laravel-project-ke-heroku-b91fdc3aff2
 
+https://bukuinformatika.com/deploy-laravel-ke-heroku/
 
-```bash
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$ heroku run php artisan db:seed
-Running php artisan db:seed on ⬢ laravellia... up, run.4522 (Free)
-Application In Production!
-*Do you really wish to run this command? (yes/no) [no]:yes
-Database seeding completed successfully.
-```
-
-jika terdapat file uploaded di projek anda, sehingga harus membuat linking ke /public anda bisa saja menggunakan perintah berikut:
-
-```bash
-heroku run php artisan storage:link
-```
+https://www.ismynr.xyz/2020/10/deploy-laravel-ke-heroku-mysql.html
