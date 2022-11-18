@@ -496,15 +496,22 @@ Database seeding completed successfully.
 jika terdapat file uploaded di projek anda, sehingga harus membuat linking ke /public anda bisa saja menggunakan perintah berikut:
 
 ```bash
-heroku run php artisan storage:link
+heroku run bash
+```
+
+```bash
+php artisan storage:link
 ```
 
 Respon:
 
-```bash
-yysofiyan@imac MINGW64 /d/laragon/www/PABWEB-LARAVEL/PABWEB-LARAVEL/21-pabweb (main)
-$ heroku run php artisan storage:link
-Running php artisan storage:link on ⬢ laravellia... up, run.3131 (Free)
+```console
+laravellia on  main via ⬢ v16.15.1 via 🐘 v7.4.32 took 16s 
+➜ heroku run bash                    
+ ›   Warning: heroku update available from 7.65.0 to 7.66.2.
+Running bash on ⬢ laravellia... up, run.8248 (Free)
+~ $ php artisan storage:link
 The [/app/public/storage] link has been connected to [/app/storage/app/public].
 The links have been created.
 ```
+
